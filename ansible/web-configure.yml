@@ -1,23 +1,25 @@
-- hosts: localhost
-  tasks : 
+---
+- name: Create and Configure Web Server
+  hosts: all
+  become: yes
 
- - package:
-    name: httpd
-    state: present
-  
- - name: "document root for web"
-   file: 
-     state: directory
-     path: "/var/www/html"
+  tasks:
+    - name: Install Apache HTTP Server
+      package:
+        name: httpd
+        state: present
 
- - copy:
-     dest: "/var/www/html/index.html"
-     content: "Ansible integrate with Terraform"
+    - name: Start Apache Service
+      service:
+        name: httpd
+        state: started
+        enabled: yes
 
- - service:
-     name: "httpd"
-     state: restart     
-     enabled: "yes"
+    - name: Create index.html
+      copy:
+        content: "<html><body><h1>Welcome to my web server!</h1></body></html>"
+        dest: /var/www/html/index.html
+
 
  - firewalld: 
      port: 80/tcp 
