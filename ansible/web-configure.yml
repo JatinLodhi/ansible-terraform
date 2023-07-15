@@ -1,0 +1,27 @@
+- hosts: localhost
+  tasks : 
+
+ - package:
+    name: httpd
+    state: present
+  
+ - name: "document root for web"
+   file: 
+     state: directory
+     path: "/var/www/html"
+
+ - copy:
+     dest: "/var/www/html/index.html"
+     content: "Ansible integrate with Terraform"
+
+ - service:
+     name: "httpd"
+     state: restart     
+     enabled: "yes"
+
+ - firewalld: 
+     port: 80/tcp 
+     state: enabled
+     permanent: yes
+     immediate: yes   
+
