@@ -21,9 +21,9 @@
         dest: /var/www/html/index.html
 
 
- - firewalld: 
-     port: 80/tcp 
-     state: enabled
-     permanent: yes
-     immediate: yes   
+    - firewalld: 
+        port: 80/tcp 
+        state: enabled
+        permanent: yes
+        immediate: yes   
 
